@@ -41,6 +41,9 @@
 #navbar>ul>li:hover{
     text-decoration: none;
 }
+#navbar>ul>li a{
+    color: inherit;
+}
 #footer{
     text-align: center;
     position: absolute;
