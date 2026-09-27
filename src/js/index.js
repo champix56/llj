@@ -5,6 +5,7 @@ document.querySelector("#navbar").addEventListener('click',function(evt){
     evt.target.parentNode.classList.add('active')
     switch(evt.target.attributes['href'].value){
         case '#/editor':console.log('editor');loadDOMEditor();break;
+        case '#/thumbnail':console.log('editor');loadDOMThumbnail();break;
         case '#/':console.log('home');loadDOMHome();break;
         default:break;
     }
