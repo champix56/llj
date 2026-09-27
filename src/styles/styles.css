@@ -16,6 +16,7 @@
     background-color: #4b4b4b;
     color: white;
     font-size: x-large;
+    font-weight: 900;
     padding-bottom: 5px;
     padding-top: 5px;
     margin-top: 10px;
@@ -31,6 +32,12 @@
 }
 #navbar>ul>li:not(:first-child){
     margin-left: 20px;
+}
+#navbar>ul>li{
+    text-decoration: underline white;
+}
+#navbar>ul>li:hover{
+    text-decoration: none;
 }
 #footer{
     text-align: center;
