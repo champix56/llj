@@ -40,8 +40,17 @@ function loadDOMEditor() {
 function loadDOMThumbnail() {
   commonPageLoader("/pages/thumbnail/thumbnail.html");
 }
-
+/**
+ * common loader html for wrapper
+ * @param {string} pageUrl url of page to load
+ */
 function commonPageLoader(pageUrl) {
+  var key = pageUrl;
+  var content = sessionStorage.getItem(key);
+  if (content) {
+    loadInWrapper(content);
+    return;
+  }
   var xhr = new XMLHttpRequest();
   xhr.open("GET", pageUrl);
   xhr.onreadystatechange = function (evt) {
@@ -57,7 +66,17 @@ function commonPageLoader(pageUrl) {
         " n'a pas pu etre chargée</div>";
       return;
     }
-    document.querySelector("#wrapper").innerHTML = evt.target.responseText;
+    sessionStorage.setItem(key,evt.target.responseText)
+    //document.querySelector("#wrapper").innerHTML = evt.target.responseText;
+    loadInWrapper(evt.target.responseText);
   };
   xhr.send();
+}
+/**
+ * load text as html in wrapper
+ * @param {HTMLElement} wrapper
+ * @param {string} contentText
+ */
+function loadInWrapper( contentText,wrapper=document.querySelector("#wrapper")) {
+  wrapper.innerHTML = contentText;
 }
