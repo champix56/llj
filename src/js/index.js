@@ -1,16 +1,9 @@
-document.querySelector("#navbar").addEventListener("click", function (evt) {
-  if (evt.target.nodeName !== "A") return;
-  console.log(evt.target, evt.currentTarget);
-  evt.currentTarget
-    .querySelectorAll("#navbar .active")
-    .forEach(function (element) {
-      element.classList.remove("active");
-    });
-  evt.target.parentNode.classList.add("active");
-});
 
-document.querySelectorAll("#navbar a").forEach(function (a) {});
-function fixlinks(a) {
+/**
+ * escape link and force load content
+ * @param {HTMLLinkElement} a
+ */
+function fixlink(a) {
   a.addEventListener("click", function (evt) {
     evt.preventDefault();
     history.pushState(null, null, evt.target.href);
@@ -69,6 +62,20 @@ function loadInWrapper(
 
 document.addEventListener("DOMContentLoaded", function () {
   loadContentPageByUrl(location.pathname);
+  document.querySelector("#navbar").addEventListener("click", function (evt) {
+  if (evt.target.nodeName !== "A") return;
+  console.log(evt.target, evt.currentTarget);
+  evt.currentTarget
+    .querySelectorAll("#navbar .active")
+    .forEach(function (element) {
+      element.classList.remove("active");
+    });
+  evt.target.parentNode.classList.add("active");
+});
+
+document.querySelectorAll("#navbar a").forEach(function (a) {
+    fixlink(a)
+});
 });
 /**
  * start loading wrapper process by url
