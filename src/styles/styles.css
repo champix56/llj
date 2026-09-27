@@ -23,6 +23,11 @@
     margin-bottom: 10px;
     border-radius: 3px;
 }
+#navbar .active{
+    color: #ababab;
+    text-decoration: underline #ababab;
+
+}
 #navbar>ul{
     display: flex;
     list-style: none;
@@ -49,6 +54,10 @@
 }
 #wrapper{
     display: flex;
-    background-color: blue;
+    /*background-color: blue;*/
     height:calc( 100% - 135px);
+    overflow-y: auto;
+}
+#wrapper>*{
+    height: 100%;
 }
