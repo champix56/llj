@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meme.js &copy; Orsys</title>
     <script type="module" src="js/index.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.css">
+
     <link rel="stylesheet" href="styles/styles.css">
-    <link rel="stylesheet" href="styles/memeform.css">
+    <link rel="stylesheet" href="styles/editor.css">
 </head>
 
 <body>
@@ -33,7 +35,7 @@
                             <h1>Titre</h1>
                         </label>
                         <br />
-                        <input name="titre" id="titre" value="React is easy" />
+                        <input name="titre" id="titre" />
                         <hr />
                         <label for="image">
                             <h2>Image</h2>
@@ -50,20 +52,20 @@
                             <h2>texte</h2>
                         </label>
                         <br />
-                        <input name="text" id="text" type="text" value="Le js m'a tué" />
+                        <input name="text" id="text" type="text" />
                         <br />
                         <h2>Position</h2>
                         <div class="inline-block">
                             <div>
                                 <label for="x" class="bold block">
                                     x</label>
-                                <input class="small-number" name="x" id="x" type="number" value="121" />
+                                <input class="small-number" name="x" id="x" type="number"/>
                             </div>
                             <div>
                                 <label for="y" class="bold block">
                                     y
                                 </label>
-                                <input class="small-number" name="y" id="y" type="number" value="65" />
+                                <input class="small-number" name="y" id="y" type="number" />
                             </div>
                         </div>
                         <hr />
@@ -119,8 +121,8 @@
                         </div>
                         <hr />
                         <div class="center-flex">
-                            <button type="reset">Annul.</button>
-                            <button type="submit">Valider</button>
+                            <button class="btn btn-danger" type="reset">Annul.</button>
+                            <button class="btn btn-primary" type="submit">Valider</button>
                         </div>
                     </form>
                 </div>
