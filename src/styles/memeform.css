@@ -1,0 +1,28 @@
+#editor{
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+#editor>*:first-child{
+  flex-grow: 1;
+}
+#memeform {
+  height: 100%;
+  width: 32vw;
+  margin-left: 10px;
+  overflow-y: auto;
+  text-align: center;
+}
+.small-number{
+    width: 50px;
+}
+#viewer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#editor canvas{
+  border: 1px solid grey;
+  max-width:100%;
+  max-height:calc(100% - 5px)
+}

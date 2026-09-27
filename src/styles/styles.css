@@ -61,3 +61,24 @@
 #wrapper>*{
     height: 100%;
 }
+.inline{
+    display: inline;
+}
+.inline-block{
+    display: flex;
+    justify-content: space-around;
+}
+.block{
+    display: block;
+}
+.bold{
+    font-size: xx-large;
+    font-weight: 900;
+}
+.underline{
+    text-decoration: underline;
+}
+.center-flex{
+    display: flex;
+    justify-content: space-evenly;
+}
