@@ -12,3 +12,23 @@
     font-style: italic;
     color:skyblue
 }
+#navbar{
+    background-color: #4b4b4b;
+    color: white;
+    font-size: x-large;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
+#navbar>ul{
+    margin-left: 0;
+}
+#navbar>ul{
+    display: flex;
+    list-style: none;
+}
+#navbar>ul>li:not(:first-child){
+    margin-left: 20px;
+}
