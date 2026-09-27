@@ -7,15 +7,16 @@ document.querySelector("#navbar").addEventListener("click", function (evt) {
       element.classList.remove("active");
     });
   evt.target.parentNode.classList.add("active");
-  loadContentPageByUrl(evt.target.attributes["href"].value);
 });
 
-document.querySelectorAll("#navbar a").forEach(function (a) {
+document.querySelectorAll("#navbar a").forEach(function (a) {});
+function fixlinks(a) {
   a.addEventListener("click", function (evt) {
     evt.preventDefault();
     history.pushState(null, null, evt.target.href);
+    loadContentPageByUrl(evt.target.attributes["href"].value);
   });
-});
+}
 function loadDOMHome() {
   commonPageLoader("/pages/home/home.html");
 }
@@ -41,10 +42,11 @@ function commonPageLoader(pageUrl) {
   xhr.onreadystatechange = function (evt) {
     if (evt.target.readyState < XMLHttpRequest.DONE) return;
     if (evt.target.status !== 200) {
-        loadDOMErrorInWrapper(
-        evt.target.status ,
-        evt.target.statusText ,
-        evt.target.responseURL );
+      loadDOMErrorInWrapper(
+        evt.target.status,
+        evt.target.statusText,
+        evt.target.responseURL,
+      );
       return;
     }
     sessionStorage.setItem(key, evt.target.responseText);
@@ -66,7 +68,7 @@ function loadInWrapper(
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    loadContentPageByUrl(location.pathname)
+  loadContentPageByUrl(location.pathname);
 });
 /**
  * start loading wrapper process by url
@@ -86,8 +88,8 @@ function loadContentPageByUrl(pageUrl) {
       console.log("home");
       loadDOMHome();
       break;
-      default:
-        loadDOMErrorInWrapper(404,'NOT FOUND',location.pathname)
+    default:
+      loadDOMErrorInWrapper(404, "NOT FOUND", location.pathname);
       break;
   }
 }
@@ -98,13 +100,18 @@ function loadContentPageByUrl(pageUrl) {
  * @param {string} url
  * @param {HTMLElement} wrapper
  */
-function loadDOMErrorInWrapper(status,statusText,url,wrapper=document.querySelector('#wrapper')){
-     wrapper.innerHTML =
-        '<div id="error"><h1>' +
-        status +
-        ":" +
-        statusText +
-        "</h1>malheuresement la page charger :" +
-        url +
-        " n'a pas pu etre chargée</div>";
+function loadDOMErrorInWrapper(
+  status,
+  statusText,
+  url,
+  wrapper = document.querySelector("#wrapper"),
+) {
+  wrapper.innerHTML =
+    '<div id="error"><h1>' +
+    status +
+    ":" +
+    statusText +
+    "</h1>malheuresement la page charger :" +
+    url +
+    " n'a pas pu etre chargée</div>";
 }
