@@ -7,22 +7,7 @@ document.querySelector("#navbar").addEventListener("click", function (evt) {
       element.classList.remove("active");
     });
   evt.target.parentNode.classList.add("active");
-  switch (evt.target.attributes["href"].value) {
-    case "/editor":
-      console.log("editor");
-      loadDOMEditor();
-      break;
-    case "/thumbnail":
-      console.log("editor");
-      loadDOMThumbnail();
-      break;
-    case "/":
-      console.log("home");
-      loadDOMHome();
-      break;
-    default:
-      break;
-  }
+  loadContentPageByUrl(evt.target.attributes["href"].value);
 });
 
 document.querySelectorAll("#navbar a").forEach(function (a) {
@@ -66,7 +51,7 @@ function commonPageLoader(pageUrl) {
         " n'a pas pu etre chargée</div>";
       return;
     }
-    sessionStorage.setItem(key,evt.target.responseText)
+    sessionStorage.setItem(key, evt.target.responseText);
     //document.querySelector("#wrapper").innerHTML = evt.target.responseText;
     loadInWrapper(evt.target.responseText);
   };
@@ -77,6 +62,34 @@ function commonPageLoader(pageUrl) {
  * @param {HTMLElement} wrapper
  * @param {string} contentText
  */
-function loadInWrapper( contentText,wrapper=document.querySelector("#wrapper")) {
+function loadInWrapper(
+  contentText,
+  wrapper = document.querySelector("#wrapper"),
+) {
   wrapper.innerHTML = contentText;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    loadContentPageByUrl(location.pathname)
+});
+/**
+ * start loading wrapper process by url
+ * @param {string} pageUrl
+ */
+function loadContentPageByUrl(pageUrl) {
+  switch (pageUrl) {
+    case "/editor":
+      console.log("editor");
+      loadDOMEditor();
+      break;
+    case "/thumbnail":
+      console.log("editor");
+      loadDOMThumbnail();
+      break;
+    case "/":
+    default:
+      console.log("home");
+      loadDOMHome();
+      break;
+  }
 }
