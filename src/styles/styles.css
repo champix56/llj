@@ -1,0 +1,14 @@
+#header{
+    font-size: xx-large;
+    font-weight: 900;
+    color: tomato;
+    text-decoration: underline grey;
+    text-shadow: 5px 5px 15px grey;
+}
+#dot{
+    color:black
+}
+#js{
+    font-style: italic;
+    color:skyblue
+}
