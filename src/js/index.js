@@ -4,15 +4,16 @@ document.querySelector("#navbar").addEventListener('click',function(evt){
     evt.currentTarget.querySelectorAll('#navbar .active').forEach(function(element){element.classList.remove('active')})
     evt.target.parentNode.classList.add('active')
     switch(evt.target.attributes['href'].value){
-        case '#/editor':console.log('editor');loadDOMEditor();break;
-        case '#/thumbnail':console.log('editor');loadDOMThumbnail();break;
-        case '#/':console.log('home');loadDOMHome();break;
+        case '/editor':console.log('editor');loadDOMEditor();break;
+        case '/thumbnail':console.log('editor');loadDOMThumbnail();break;
+        case '/':console.log('home');loadDOMHome();break;
         default:break;
     }
 })
 
 document.querySelectorAll("#navbar a").forEach(function(a){a.addEventListener('click',function(evt){
     evt.preventDefault()
+    history.pushState(null,null,evt.target.href)
 })})
 function loadDOMHome(){
    commonPageLoader('/pages/home/home.html');
