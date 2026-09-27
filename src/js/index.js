@@ -41,14 +41,10 @@ function commonPageLoader(pageUrl) {
   xhr.onreadystatechange = function (evt) {
     if (evt.target.readyState < XMLHttpRequest.DONE) return;
     if (evt.target.status !== 200) {
-      document.querySelector("#wrapper").innerHTML =
-        '<div id="error"><h1>' +
-        evt.target.status +
-        ":" +
-        evt.target.statusText +
-        "</h1>malheuresement la page charger :" +
-        evt.target.responseURL +
-        " n'a pas pu etre chargée</div>";
+        loadDOMErrorInWrapper(
+        evt.target.status ,
+        evt.target.statusText ,
+        evt.target.responseURL );
       return;
     }
     sessionStorage.setItem(key, evt.target.responseText);
@@ -87,9 +83,28 @@ function loadContentPageByUrl(pageUrl) {
       loadDOMThumbnail();
       break;
     case "/":
-    default:
       console.log("home");
       loadDOMHome();
       break;
+      default:
+        loadDOMErrorInWrapper(404,'NOT FOUND',location.pathname)
+      break;
   }
+}
+/**
+ * SET HTTP error in wrapper
+ * @param {number} status
+ * @param {string} statusText
+ * @param {string} url
+ * @param {HTMLElement} wrapper
+ */
+function loadDOMErrorInWrapper(status,statusText,url,wrapper=document.querySelector('#wrapper')){
+     wrapper.innerHTML =
+        '<div id="error"><h1>' +
+        status +
+        ":" +
+        statusText +
+        "</h1>malheuresement la page charger :" +
+        url +
+        " n'a pas pu etre chargée</div>";
 }
