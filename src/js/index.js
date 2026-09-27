@@ -11,6 +11,9 @@ document.querySelector("#navbar").addEventListener('click',function(evt){
     }
 })
 
+document.querySelectorAll("#navbar a").forEach(function(a){a.addEventListener('click',function(evt){
+    evt.preventDefault()
+})})
 function loadDOMHome(){
    commonPageLoader('/pages/home/home.html');
 }
