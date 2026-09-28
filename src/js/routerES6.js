@@ -3,11 +3,12 @@ class Router {
   #config = {};
   #routesNames = [];
   #currentRoute = {};
-  constructor(wrapper = document.querySelector("#wrapper"), config = routes) {
-    this.wrapper = wrapper;
+  constructor(config = routes) {
+    this.wrapper = undefined;
     this.#config = config;
     this.#routesNames = Object.getOwnPropertyNames(config);
   }
+
   /**
    * fix an internal link if start by /
    * @param {HTMLLinkElement} a
@@ -15,12 +16,13 @@ class Router {
   fixLinksForRouter(a) {
     const href = a.attributes.getNamedItem("href").value;
     if (!href.startsWith("/")) return;
-    a.removeEventListener("click");
-    a.addEventListener("click", (evt) => {
-      evt.preventDefault();
-      this.loadPageByPath(href);
-    });
+    a.removeEventListener("click", this.#onlinkclicked);
+    a.addEventListener("click", this.#onlinkclicked);
   }
+  #onlinkclicked = (evt) => {
+    evt.preventDefault();
+    this.loadPageByPath(evt.target.attributes.getNamedItem("href").value);
+  };
   #loadError(status, statusText, url) {
     this.wrapper.innerHTML =
       '<div id="error"><h1>' +
@@ -32,9 +34,43 @@ class Router {
       " n'a pas pu etre chargée</div>";
   }
   loadPageByPath(path) {
+    history.pushState("", null, path);
+    if (!this.#getCurrentRoute(path)) {
+      return this.#loadError();
+    }
+    this.#fetchPageContent();
   }
-  #fetchPageContent(pageUrl){
-
+  #getCurrentRoute(path) {
+    const currentRouteName = this.#routesNames.find((r) => {
+      return this.#config[r].path === path;
+    });
+    this.#currentRoute = this.#config[currentRouteName];
+    return this.#currentRoute;
+  }
+  #fetchPageContent() {
+    if (this.#currentRoute.cacheHTML) {
+      this.#loadContentInwrapper(this.#currentRoute.cacheHTML);
+      return;
+    }
+    fetch(this.#currentRoute.href)
+      .then((response) => {
+        if (response.ok) {
+          return response.text();
+        } else {
+          return response;
+        }
+      })
+      .then((content) => {
+        if (typeof content === "string") {
+          this.#currentRoute.cacheHTML = content;
+          this.#loadContentInwrapper();
+        } else {
+          this.#loadError(content.status, content.statusText, content.url);
+        }
+      });
+  }
+  #loadContentInwrapper() {
+    this.wrapper.innerHTML = this.#currentRoute.cacheHTML;
   }
 }
 
@@ -43,7 +79,8 @@ const routes = {
     href: "/pages/editor/editor.html",
     path: "/editor",
     js: "/pages/editor/editor.js",
-    loader: editorLoaded(),
+    loader: () => editorLoaded(),
+    cacheHTML: undefined,
   },
   home: {
     href: "/pages/home/home.html",
