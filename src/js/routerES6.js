@@ -91,3 +91,5 @@ const routes = {
     path: "/thumbnail",
   },
 };
+const router =new Router()
+export default router

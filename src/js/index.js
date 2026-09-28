@@ -1,4 +1,4 @@
-let router = new Router();
+import router from './routerES6.js'
 
 function domInit() {
     router.wrapper=document.querySelector('#wrapper')
